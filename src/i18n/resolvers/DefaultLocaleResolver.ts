@@ -7,7 +7,7 @@ import { defaultLocale } from "../available-locales";
  */
 export class DefaultLocaleResolver implements LocaleResolver {
 
-	public getLocale(): Locale {
+	public async getLocale(): Promise<Locale> {
         return defaultLocale;
     }
 }

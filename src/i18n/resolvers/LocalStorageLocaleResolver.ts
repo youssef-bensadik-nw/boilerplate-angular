@@ -8,12 +8,12 @@ import { availableLocales } from "../available-locales";
  */
 export class LocalStorageLocaleResolver implements LocaleResolver {
 
-	public getLocale(): Locale | null {
+	public async getLocale(): Promise<Locale | null> {
 		const localStorageLocale = localStorage.getItem("i18n-locale");
 		if (localStorageLocale === null) {
 			return null;
 		}
-		const parseResult = LocaleName.safeParse(localStorageLocale);
+		const parseResult = await LocaleName.safeParseAsync(localStorageLocale);
 		if (!parseResult.success) {
 			return null;
 		}

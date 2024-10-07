@@ -11,7 +11,7 @@ export class NavigatorLocaleResolver implements LocaleResolver {
 		return localeName.split("-")[0];
 	}
 
-	public getLocale(): Locale | null {
+	public async getLocale(): Promise<Locale | null> {
         const navigatorLocaleName = (navigator.languages && navigator.languages.length && navigator.languages[0]) || navigator.language || null;
 		if (navigatorLocaleName === null) {
 			return null;

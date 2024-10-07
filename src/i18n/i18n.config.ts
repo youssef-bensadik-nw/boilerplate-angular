@@ -27,6 +27,6 @@ export const i18nConfig: I18nConfig = {
 	resolvers: [
 		{ resolver: LocalStorageLocaleResolver },
 		{ resolver: NavigatorLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy },
-		{ resolver: DefaultLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy }
+		{ resolver: DefaultLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy },
 	]
 }

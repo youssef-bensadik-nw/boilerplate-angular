@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
-  selector: 'nw-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  template: `
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <router-outlet />
-  `,
-  styles: [],
+	selector: 'nw-root',
+	standalone: true,
+	imports: [RouterOutlet, TranslateModule],
+	template: `
+		<h1 class="text-3xl font-bold underline">
+			Hello world! using {{ "test" | translate }}
+		</h1>
+		<router-outlet />
+	`,
+	styles: [],
 })
 export class AppComponent {
 }

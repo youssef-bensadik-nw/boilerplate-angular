@@ -11,6 +11,9 @@
 npm-debug.log
 yarn-error.log
 
+# PNPM
+.pnpm-store
+
 # IDEs and editors
 .idea/
 .project

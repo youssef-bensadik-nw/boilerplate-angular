@@ -1,4 +1,4 @@
-import type {I18nConfig, Locale} from "../types";
+import type { I18nConfig, Locale } from "../types";
 import type { LocaleResolver } from "./LocaleResolver";
 
 /**
@@ -8,8 +8,8 @@ export class NavigatorLocaleResolver implements LocaleResolver {
 
 	constructor(private readonly config: I18nConfig) {}
 
-	private extractLanguageCode(localeName: string): string {
-		return localeName.split("-")[0];
+	private extractLanguageCode(localeName: string): string | undefined {
+		return localeName.split("-").at(0);
 	}
 
 	public async getLocale(): Promise<Locale | null> {
@@ -18,6 +18,9 @@ export class NavigatorLocaleResolver implements LocaleResolver {
 			return null;
 		}
 		const languageCode = this.extractLanguageCode(navigatorLocaleName);
+		if (languageCode === undefined) {
+			return null;
+		}
 		return this.config.locales
 			.find(locale => this.extractLanguageCode(locale.code) === languageCode)
 			?? null;

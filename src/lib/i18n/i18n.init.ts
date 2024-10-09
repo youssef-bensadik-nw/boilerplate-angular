@@ -1,7 +1,7 @@
 import { NGXLogger} from "ngx-logger";
 import { TranslateService } from "@ngx-translate/core";
 import { inject } from "@angular/core";
-import { i18nConfig } from "../app/config/i18n.config";
+import { i18nConfig } from "../../app/config/i18n.config";
 import type { I18nConfig, Locale } from "./types";
 import type { LocaleResolver } from "./resolvers";
 import type { LocalePersistenceStrategy } from "./persistence-strategies";

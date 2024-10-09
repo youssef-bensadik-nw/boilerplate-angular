@@ -4,7 +4,7 @@ import {
 	NavigatorLocaleResolver,
 	LocalStorageLocalePersistenceStrategy,
 	type I18nConfig,
-} from "../../i18n";
+} from "../../lib";
 
 export const i18nConfig: I18nConfig = {
 
@@ -15,7 +15,7 @@ export const i18nConfig: I18nConfig = {
 	 * Important: The code must correspond to the translation file in `public/translations`.
 	 */
 	locales: [
-		
+
 		/** Default locale **/
 		{
 			code: "en-US",

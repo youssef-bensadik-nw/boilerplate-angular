@@ -6,12 +6,12 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
+import { routes } from './routes.config';
 import { provideClientHydration } from '@angular/platform-browser';
-import { i18nProvider } from "../i18n";
+import { i18nProvider } from "../../i18n";
 import { provideHttpClient } from "@angular/common/http";
 import { LoggerModule, NGXLogger, NgxLoggerLevel } from "ngx-logger";
-import { initializeAppFactory } from "./app.init";
+import { initializeAppFactory } from "../app.init";
 import { TranslateService } from "@ngx-translate/core";
 
 const loggerProvider = LoggerModule.forRoot({
@@ -19,7 +19,7 @@ const loggerProvider = LoggerModule.forRoot({
 	disableFileDetails: true,
 });
 
-export const appConfig: ApplicationConfig = {
+export const clientConfig: ApplicationConfig = {
 	providers: [
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),

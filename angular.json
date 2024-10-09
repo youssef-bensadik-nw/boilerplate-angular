@@ -37,12 +37,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-			  {
-			    "glob": "**/*",
-				"input": "src/i18n/translations",
-				"output": "translations"
-			  }
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -106,12 +101,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-			  {
-				"glob": "**/*",
-				"input": "src/i18n/translations",
-				"output": "translations"
-			  }
+              }
             ],
             "styles": [
               "src/styles.scss"

@@ -1,25 +1,31 @@
-import type { Locale } from "../types";
+import type { I18nConfig, Locale } from "../types";
 import type { LocaleResolver } from "./LocaleResolver";
-import { LocaleName } from "../types";
-import { availableLocales } from "../available-locales";
-
+import { LocaleCode } from "../types";
 /**
  * Resolves the locale from localStorage
  */
 export class LocalStorageLocaleResolver implements LocaleResolver {
 
+	constructor(private readonly config: I18nConfig) {}
+
 	public async getLocale(): Promise<Locale | null> {
-		const localStorageLocale = localStorage.getItem("i18n-locale");
+
+		const key = this.config.persistenceKey;
+		if (key === undefined) {
+			return null;
+		}
+
+		const localStorageLocale = localStorage.getItem(key);
 		if (localStorageLocale === null) {
 			return null;
 		}
-		const parseResult = await LocaleName.safeParseAsync(localStorageLocale);
+		const parseResult = await LocaleCode.safeParseAsync(localStorageLocale);
 		if (!parseResult.success) {
 			return null;
 		}
-		const localeName = parseResult.data;
-		return availableLocales
-			.find(locale => locale.name === localeName)
+		const localeCode = parseResult.data;
+		return this.config.locales
+			.find(locale => locale.code === localeCode)
 			?? null;
     }
 

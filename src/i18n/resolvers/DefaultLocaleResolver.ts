@@ -1,13 +1,18 @@
-import type { Locale } from "../types";
+import type {I18nConfig, Locale} from "../types";
 import type { LocaleResolver } from "./LocaleResolver";
-import { defaultLocale } from "../available-locales";
 
 /**
  * Resolves the locale to the default locale.
  */
 export class DefaultLocaleResolver implements LocaleResolver {
 
+    constructor(private readonly config: I18nConfig) {}
+
 	public async getLocale(): Promise<Locale> {
-        return defaultLocale;
+        const locale = this.config.locales.at(0);
+        if (!locale) {
+            throw new Error("No default locale provided.");
+        }
+        return locale;
     }
 }

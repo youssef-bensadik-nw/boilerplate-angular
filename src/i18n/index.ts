@@ -1,5 +1,5 @@
-export * from './available-locales';
 export * from './i18n-provider';
-export * from './i18n.config';
 export * from './types';
+export * from './resolvers';
+export * from './persistence-strategies';
 export * from './i18n.init';

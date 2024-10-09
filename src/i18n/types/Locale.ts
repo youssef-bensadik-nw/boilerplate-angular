@@ -1,9 +1,10 @@
 import { z } from 'zod';
-import { LocaleName } from "./LocaleName";
+import { LocaleCode } from "./LocaleCode";
 import { LocaleDirection } from "./LocaleDirection";
 
 export const Locale = z.object({
-	name: LocaleName,
+	code: LocaleCode,
+	localeSpecificName: z.string().optional(),
 	direction: LocaleDirection
 }).strict();
 

@@ -1,16 +1,15 @@
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient } from "@angular/common/http";
+import { httpLoaderFactory } from "./i18n.init";
+import { I18nConfig } from "./types";
 
-// AoT requires an exported function for factories
-export function httpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, 'translations/', '.json');
+
+export const i18nProvider = function(config: I18nConfig) {
+	return TranslateModule.forRoot({
+		loader: {
+			provide: TranslateLoader,
+			useFactory: httpLoaderFactory(config),
+			deps: [HttpClient]
+		},
+	});
 }
-
-export const i18nProvider = TranslateModule.forRoot({
-	loader: {
-		provide: TranslateLoader,
-		useFactory: httpLoaderFactory,
-		deps: [HttpClient]
-	},
-});

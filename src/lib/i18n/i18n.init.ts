@@ -1,10 +1,11 @@
 import { NGXLogger} from "ngx-logger";
 import { TranslateService } from "@ngx-translate/core";
 import { inject } from "@angular/core";
-import { i18nConfig } from "../../app/config/i18n.config";
 import type { I18nConfig, Locale } from "./types";
 import type { LocaleResolver } from "./resolvers";
 import type { LocalePersistenceStrategy } from "./persistence-strategies";
+import { HttpClient } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 interface LocaleResolverCtor {
 	new (config: I18nConfig): LocaleResolver;
@@ -37,7 +38,7 @@ export async function initI18n(config: I18nConfig) {
 		let resolverName: string = "";
 		for (const { resolver: Resolver, persistenceStrategy: PersistenceStrategy } of config.resolvers) {
 			// const resolver = new Resolver();
-			const resolver = createResolver(Resolver, i18nConfig);
+			const resolver = createResolver(Resolver, config);
 			resolverName = resolver.constructor.name;
 			locale = await resolver.getLocale();
 			if (locale !== null) {
@@ -54,4 +55,14 @@ export async function initI18n(config: I18nConfig) {
 		}
 		translateService.setDefaultLang(locale.code);
 
+}
+
+export function httpLoaderFactory(config: I18nConfig) {
+	return function (http: HttpClient) {
+		return new TranslateHttpLoader(
+			http,
+			`${config.translationPath}/`,
+			`.json`
+		);
+	}
 }

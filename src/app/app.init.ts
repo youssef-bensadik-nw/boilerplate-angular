@@ -3,7 +3,6 @@ import { Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
 import { initI18n } from "../lib";
 import { i18nConfig } from "./config/i18n.config";
 
-
 /**
  * Initializers that should only run on the client side
  */

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
+import { NGXLogger } from "ngx-logger";
 
 @Component({
 	selector: 'nw-root',
@@ -15,4 +16,6 @@ import { TranslateModule } from "@ngx-translate/core";
 	styles: [],
 })
 export class AppComponent {
+
+	constructor(private logger: NGXLogger) {}
 }

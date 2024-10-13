@@ -9,4 +9,5 @@ export type I18nConfig = {
 		persistenceStrategy?: new (config: I18nConfig) => LocalePersistenceStrategy,
 	}>,
 	persistenceKey?: string,
+	translationPath: string,
 }

@@ -50,5 +50,10 @@ export const i18nConfig: I18nConfig = {
 	 * The key to use for the locale persistence.
 	 * For instance, for the local storage strategy, the locale will be stored under this key.
 	 */
-	persistenceKey: "i18n-locale"
+	persistenceKey: "i18n-locale",
+
+	/**
+	 * Location of the translation files.
+	 */
+	translationPath: "translations",
 }

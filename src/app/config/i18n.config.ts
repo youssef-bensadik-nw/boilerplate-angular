@@ -1,9 +1,10 @@
 import {
+	type I18nConfig,
 	DefaultLocaleResolver,
 	LocalStorageLocaleResolver,
 	NavigatorLocaleResolver,
 	LocalStorageLocalePersistenceStrategy,
-	type I18nConfig,
+	UpdateBodyDirAttributeDirectionChangeHandler
 } from "../../lib";
 
 export const i18nConfig: I18nConfig = {
@@ -20,12 +21,10 @@ export const i18nConfig: I18nConfig = {
 		{
 			code: "en-US",
 			localeSpecificName: "English",
-			direction: "ltr"
 		},
 		{
 			code: "fr-FR",
 			localeSpecificName: "Français",
-			direction: "ltr"
 		},
 		{
 			code: "ar-MA",
@@ -47,9 +46,15 @@ export const i18nConfig: I18nConfig = {
 	],
 
 	/**
+	 * The direction change handlers are called when the locale is changed
+	 * They are called in the order they are defined
+	 * */
+	directionChangeHandlers: [UpdateBodyDirAttributeDirectionChangeHandler],
+
+	/**
 	 * The strategy to use for locale persistence when the locale is changed.
 	 */
-	onLocaleChangePersistenceStrategy: LocalStorageLocalePersistenceStrategy,
+	localeChangePersistenceStrategy: LocalStorageLocalePersistenceStrategy,
 
 	/**
 	 * The key to use for the locale persistence.

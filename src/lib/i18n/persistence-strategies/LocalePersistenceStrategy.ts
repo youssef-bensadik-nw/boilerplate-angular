@@ -5,5 +5,5 @@ export interface LocalePersistenceStrategy {
 	/**
 	 * Persists the locale.
 	 */
-	persistLocale(locale: Locale): void;
+	persistLocale(locale: Locale): Promise<void>;
 }

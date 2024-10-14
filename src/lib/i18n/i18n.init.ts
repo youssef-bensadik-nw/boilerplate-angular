@@ -25,7 +25,7 @@ export async function initI18n(config: I18nConfig) {
 			locale = await resolver.getLocale();
 			if (locale !== null) {
 				if (PersistenceStrategy) {
-					createPersistenceStrategy(PersistenceStrategy, config).persistLocale(locale);
+					await createPersistenceStrategy(PersistenceStrategy, config).persistLocale(locale);
 				}
 				break;
 			}

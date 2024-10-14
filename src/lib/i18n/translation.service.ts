@@ -1,16 +1,16 @@
 import { LocaleCode, TranslationKeys } from "../../gen";
 import { inject, Injectable, signal } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 import { map, Observable, tap } from "rxjs";
 import { NGXLogger } from "ngx-logger";
 import { I18nConfig, Locale, LocaleDirection } from "./types";
-import { createPersistenceStrategy } from "./ctor";
+import { createDirectionChangeHandler, createPersistenceStrategy } from "./ctor";
 import { I18N_CONFIG } from "./provide-i18n";
 
 type CallableLeaf<T> = {
 	[K in keyof T]: T[K] extends object
-		? CallableLeaf<T[K]> // If the value is an object, apply CallableLeaf recursively
-		: (...args: string[]) => T[K]; // If the value is not an object, convert it to a function returning the original type
+		? CallableLeaf<T[K]>
+		: (...args: string[]) => T[K];
 };
 
 type RefinedLocale = {
@@ -25,15 +25,13 @@ export class TranslationService {
 	constructor(private readonly logger: NGXLogger, private readonly service: TranslateService) {
 
 		this.tx$ = service.onLangChange.asObservable()
-			.pipe(map((event): [locale: Locale, translations: TranslationKeys] => [
-				this.getLocaleObject(event.lang) ?? this.i18nConfig.locales[0],
-				event.translations
-			]))
-			.pipe(tap(([locale]) => this._currentLocale.set(locale)))
-			.pipe(tap(([locale]) => this.logger.debug(`Language changed to "${locale.code}".`)))
-			.pipe(tap(([locale]) => this.persist(locale.code)))
-			.pipe(tap(([_, translations]) => this.logger.debug("Loaded translations:", translations)))
-			.pipe(map(([_, translations]) => this.createCallableLeaf(translations)));
+			.pipe(map((event) => this.resolve(event)))
+			.pipe(tap(({ locale }) => this._currentLocale.set(locale)))
+			.pipe(tap(({ locale: { code } }) => this.logger.debug(`Language changed to "${code}".`)))
+			.pipe(tap(async ({ locale: { code }  }) => await this.persist(code)))
+			.pipe(tap(({ locale: { direction } }) => this.handleDirChange(direction)))
+			.pipe(tap(({ translations }) => this.logger.debug("Loaded translations:", translations)))
+			.pipe(map(({ translations }) => this.createCallableLeaf(translations)));
 	}
 
 	private i18nConfig = inject<I18nConfig>(I18N_CONFIG);
@@ -75,14 +73,28 @@ export class TranslationService {
 		}
 		return callableLeaf;
     }
-	private persist(locale: string) {
+	private async persist(locale: string) {
 		const localeObject = this.getLocaleObject(locale);
 		if (!localeObject) {
 			return;
 		}
-		const strategy = createPersistenceStrategy(this.i18nConfig.onLocaleChangePersistenceStrategy, this.i18nConfig);
+		const strategy = createPersistenceStrategy(this.i18nConfig.localeChangePersistenceStrategy, this.i18nConfig);
 		this.logger.debug(`Persisting locale "${locale} according to strategy "${strategy.constructor.name}".`);
-		strategy.persistLocale(localeObject);
+		await strategy.persistLocale(localeObject);
+	}
+	private resolve(event: LangChangeEvent):  { locale: Locale, translations: TranslationKeys } {
+		return {
+			locale: (this.getLocaleObject(event.lang) ?? this.i18nConfig.locales[0]),
+			translations: event.translations
+		}
+	}
+	private handleDirChange(direction: LocaleDirection | undefined) {
+		const defaultDirection = "ltr";
+		this.i18nConfig.directionChangeHandlers.forEach(async (handlerClass) => {
+			const handler = createDirectionChangeHandler(handlerClass, direction ?? defaultDirection);
+			this.logger.debug(`Handling direction change with "${handler.constructor.name}".`);
+			await handler.onDirectionChange(direction ?? defaultDirection);
+		});
 	}
 
 	public tx$: Observable<CallableLeaf<TranslationKeys>>;
@@ -99,5 +111,4 @@ export class TranslationService {
 	}
 	public currentLocale = this._currentLocale.asReadonly();
 	public availableLocales = signal<RefinedLocale[]>(this.i18nConfig.locales as RefinedLocale[]).asReadonly();
-
 }

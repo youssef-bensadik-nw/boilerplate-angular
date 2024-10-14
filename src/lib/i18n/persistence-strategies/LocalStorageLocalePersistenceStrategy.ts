@@ -8,12 +8,15 @@ export class LocalStorageLocalePersistenceStrategy implements LocalePersistenceS
 
 	constructor(private readonly config: I18nConfig) {}
 
-	public persistLocale(locale: Locale): void {
-		const key = this.config.persistenceKey;
-		if (key === undefined) {
-			throw new Error("The persistence key is not set.");
-		}
-        localStorage.setItem(key, locale.code);
+	public async persistLocale(locale: Locale): Promise<void> {
+		return new Promise((resolve, reject) => {
+			const key = this.config.persistenceKey;
+			if (key === undefined) {
+				return reject(new Error("The persistence key is not set."));
+			}
+			localStorage.setItem(key, locale.code);
+			resolve();
+		});
     }
 
 }

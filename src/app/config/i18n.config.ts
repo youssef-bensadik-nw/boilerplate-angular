@@ -54,6 +54,8 @@ export const i18nConfig: I18nConfig = {
 
 	/**
 	 * Location of the translation files.
+	 * Must be relative to the public folder.
 	 */
 	translationPath: "translations",
 }
+

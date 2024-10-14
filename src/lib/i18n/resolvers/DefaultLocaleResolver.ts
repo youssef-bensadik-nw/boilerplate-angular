@@ -1,4 +1,4 @@
-import type {I18nConfig, Locale} from "../types";
+import type { I18nConfig, Locale } from "../types";
 import type { LocaleResolver } from "./LocaleResolver";
 
 /**

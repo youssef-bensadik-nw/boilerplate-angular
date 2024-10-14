@@ -1,3 +1,9 @@
 {
-	"test": "English"
+	"actions": {
+		"cancel": "Cancel",
+		"close": "Close",
+		"delete": "Delete",
+		"edit": "Edit",
+		"save": "Save"
+	}
 }

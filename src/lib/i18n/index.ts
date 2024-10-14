@@ -1,4 +1,4 @@
-export * from './i18n-provider';
+export * from './provide-i18n';
 export * from './types';
 export * from './resolvers';
 export * from './persistence-strategies';

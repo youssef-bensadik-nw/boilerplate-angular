@@ -8,3 +8,4 @@ export const Locale = z.object({
 }).strict();
 
 export type Locale = z.infer<typeof Locale>;
+

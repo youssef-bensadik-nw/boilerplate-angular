@@ -5,5 +5,8 @@
 		"delete": "Delete",
 		"edit": "Edit",
 		"save": "Save"
+	},
+	"i18n": {
+		"currentLanguage": "Current language is {0}"
 	}
 }

@@ -2,26 +2,9 @@ import { NGXLogger} from "ngx-logger";
 import { TranslateService } from "@ngx-translate/core";
 import { inject } from "@angular/core";
 import type { I18nConfig, Locale } from "./types";
-import type { LocaleResolver } from "./resolvers";
-import type { LocalePersistenceStrategy } from "./persistence-strategies";
 import { HttpClient } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-
-interface LocaleResolverCtor {
-	new (config: I18nConfig): LocaleResolver;
-}
-
-interface LocalePersistenceStrategyCtor {
-	new (config: I18nConfig): LocalePersistenceStrategy;
-}
-
-const createResolver = (ctor: LocaleResolverCtor, config: I18nConfig) => {
-	return new ctor(config);
-};
-
-const createPersistenceStrategy = (ctor: LocalePersistenceStrategyCtor, config: I18nConfig) => {
-	return new ctor(config);
-}
+import { createPersistenceStrategy, createResolver } from "./ctor";
 
 export async function initI18n(config: I18nConfig) {
 
@@ -37,7 +20,6 @@ export async function initI18n(config: I18nConfig) {
 		let locale: Locale | null = null;
 		let resolverName: string = "";
 		for (const { resolver: Resolver, persistenceStrategy: PersistenceStrategy } of config.resolvers) {
-			// const resolver = new Resolver();
 			const resolver = createResolver(Resolver, config);
 			resolverName = resolver.constructor.name;
 			locale = await resolver.getLocale();
@@ -53,8 +35,8 @@ export async function initI18n(config: I18nConfig) {
 			logger.fatal("No locale could be resolved");
 			return;
 		}
-		translateService.setDefaultLang(locale.code);
-
+		translateService.setDefaultLang(locales[0]);
+		translateService.use(locale.code);
 }
 
 export function httpLoaderFactory(config: I18nConfig) {

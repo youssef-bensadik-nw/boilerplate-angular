@@ -10,7 +10,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './routes.config';
 import { provideClientHydration } from '@angular/platform-browser';
-import { i18nProvider } from "../../lib";
+import { provideI18n } from "../../lib";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import { initializeAppFactory } from "../app.init";
@@ -27,8 +27,8 @@ export const clientConfig: ApplicationConfig = {
 		provideRouter(routes),
 		provideClientHydration(),
 		provideHttpClient(withFetch()),
+		provideI18n(i18nConfig),
 		importProvidersFrom([
-			i18nProvider(i18nConfig),
 			loggerProvider,
 		]),
 		{

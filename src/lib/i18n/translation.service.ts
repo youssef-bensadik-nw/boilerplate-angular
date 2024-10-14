@@ -19,19 +19,28 @@ type RefinedLocale = {
 	direction: LocaleDirection,
 };
 
+type LocaleDetails = { locale: Locale, translations: TranslationKeys }
+
 @Injectable({ providedIn: "root" })
 export class TranslationService {
 
 	constructor(private readonly logger: NGXLogger, private readonly service: TranslateService) {
 
+		const resolveLocaleDetailsFormEvent = map((event: LangChangeEvent) => this.resolveLocaleDetailsFormEvent(event));
+		const setCurrentLocale = tap(({ locale }: LocaleDetails) => {
+			this._currentLocale.set(locale);
+			this.logger.debug(`Language changed to "${locale.code}".`);
+		});
+		const persistLocale = tap(async ({ locale: { code }  }: LocaleDetails) => await this.persist(code));
+		const handleDirChange = tap(({ locale: { direction } }: LocaleDetails) => this.handleDirChange(direction));
+		const buildTranslationsObservable = map(({ translations }: LocaleDetails) => this.createCallableLeaf(translations));
+
 		this.tx$ = service.onLangChange.asObservable()
-			.pipe(map((event) => this.resolve(event)))
-			.pipe(tap(({ locale }) => this._currentLocale.set(locale)))
-			.pipe(tap(({ locale: { code } }) => this.logger.debug(`Language changed to "${code}".`)))
-			.pipe(tap(async ({ locale: { code }  }) => await this.persist(code)))
-			.pipe(tap(({ locale: { direction } }) => this.handleDirChange(direction)))
-			.pipe(tap(({ translations }) => this.logger.debug("Loaded translations:", translations)))
-			.pipe(map(({ translations }) => this.createCallableLeaf(translations)));
+			.pipe(resolveLocaleDetailsFormEvent)
+			.pipe(setCurrentLocale)
+			.pipe(persistLocale)
+			.pipe(handleDirChange)
+			.pipe(buildTranslationsObservable);
 	}
 
 	private i18nConfig = inject<I18nConfig>(I18N_CONFIG);
@@ -82,7 +91,7 @@ export class TranslationService {
 		this.logger.debug(`Persisting locale "${locale} according to strategy "${strategy.constructor.name}".`);
 		await strategy.persistLocale(localeObject);
 	}
-	private resolve(event: LangChangeEvent):  { locale: Locale, translations: TranslationKeys } {
+	private resolveLocaleDetailsFormEvent(event: LangChangeEvent): LocaleDetails {
 		return {
 			locale: (this.getLocaleObject(event.lang) ?? this.i18nConfig.locales[0]),
 			translations: event.translations

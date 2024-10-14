@@ -10,8 +10,6 @@ export async function initI18n(config: I18nConfig) {
 
 		const logger = inject(NGXLogger);
 		const translateService = inject(TranslateService);
-
-		logger.info("Initializing application...");
 		const locales = config.locales.map(locale => locale.code);
 
 		logger.debug("Available locales", locales);

@@ -1,7 +1,5 @@
 import {
-	Injector,
 	isDevMode,
-	APP_INITIALIZER,
 	ApplicationConfig,
 	importProvidersFrom,
 	provideZoneChangeDetection,
@@ -13,7 +11,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideI18n } from "../../lib";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
-import { initializeAppFactory } from "../app.init";
+import { provideAppInitializer } from "../app.init";
 import { i18nConfig } from "./i18n.config";
 
 const loggerProvider = LoggerModule.forRoot({
@@ -28,14 +26,9 @@ export const clientConfig: ApplicationConfig = {
 		provideClientHydration(),
 		provideHttpClient(withFetch()),
 		provideI18n(i18nConfig),
+		provideAppInitializer(),
 		importProvidersFrom([
 			loggerProvider,
 		]),
-		{
-			provide: APP_INITIALIZER,
-			useFactory: initializeAppFactory,
-			multi: true,
-			deps: [Injector],
-		}
 	]
 };

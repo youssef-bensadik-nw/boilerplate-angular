@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
+import { APP_INITIALIZER, Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
 import { initI18n } from "../lib";
 import { i18nConfig } from "./config/i18n.config";
 
@@ -44,4 +44,13 @@ export function initializeAppFactory(injector: Injector) {
 		await runInInjectionContext(injector, clientOnlyInitializers);
 
 	}
+}
+
+export function provideAppInitializer() {
+	return {
+		provide: APP_INITIALIZER,
+		useFactory: initializeAppFactory,
+		multi: true,
+		deps: [Injector],
+	};
 }

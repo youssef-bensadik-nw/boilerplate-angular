@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
 import { NGXLogger } from "ngx-logger";
-import { TranslationService } from "../../lib/i18n/translation.service";
 import { AsyncPipe } from "@angular/common";
+import { TranslationService } from '../services';
 
 @Component({
 	selector: 'nw-root',
@@ -28,8 +28,6 @@ import { AsyncPipe } from "@angular/common";
 	styles: [],
 })
 export class AppComponent {
-	constructor(
-		protected readonly translationService: TranslationService,
-		private logger: NGXLogger) {
-	}
+	private readonly logger = inject(NGXLogger);
+	protected readonly translationService = inject(TranslationService);
 }

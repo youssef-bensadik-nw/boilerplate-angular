@@ -8,7 +8,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './routes.config';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideI18n } from "../../lib";
+import { provideI18n } from "../../../lib";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import { provideAppInitializer } from "../app.init";

@@ -1,9 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/components/app.component';
-import { config } from "./app/config/server.config";
+import { AppComponent } from './app/common/components/app.component';
+import { config } from "./app/common/config/server.config";
 
 import { execSync } from "child_process";
-import { i18nConfig } from "./app/config/i18n.config";
+import { i18nConfig } from "./app/common/config/i18n.config";
 
 export function generateTranslationKeysType(){
 	const hygenSrcPath = "src/gen";

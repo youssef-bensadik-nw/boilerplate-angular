@@ -1,11 +1,16 @@
-import { LocaleCode, TranslationKeys } from "../../gen";
 import { inject, Injectable, signal } from "@angular/core";
-import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
-import { map, Observable, tap } from "rxjs";
+import { LocaleCode, TranslationKeys } from "../../../gen";
 import { NGXLogger } from "ngx-logger";
-import { I18nConfig, Locale, LocaleDirection } from "./types";
-import { createDirectionChangeHandler, createPersistenceStrategy } from "./ctor";
-import { I18N_CONFIG } from "./provide-i18n";
+import { type LangChangeEvent, TranslateService } from "@ngx-translate/core";
+import { map, Observable, tap } from "rxjs";
+import {
+	createDirectionChangeHandler,
+	createPersistenceStrategy,
+	I18N_CONFIG,
+	I18nConfig,
+	type Locale,
+	type LocaleDirection
+} from "../../../lib";
 
 type CallableLeaf<T> = {
 	[K in keyof T]: T[K] extends object
@@ -121,3 +126,4 @@ export class TranslationService {
 	public currentLocale = this._currentLocale.asReadonly();
 	public availableLocales = signal<RefinedLocale[]>(this.i18nConfig.locales as RefinedLocale[]).asReadonly();
 }
+

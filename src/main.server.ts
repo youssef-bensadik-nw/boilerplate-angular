@@ -7,7 +7,7 @@ import { i18nConfig } from "./app/config/i18n.config";
 
 export function generateTranslationKeysType(){
 	const hygenSrcPath = "src/gen";
-	execSync(`cd ${hygenSrcPath} && hygen i18n translations-type --translationPath ${
+	execSync(`cd ${hygenSrcPath} && npx hygen i18n translations-type --translationPath ${
 		i18nConfig.translationPath
 	} --defaultLocale ${
 		i18nConfig.locales[0].code

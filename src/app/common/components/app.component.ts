@@ -2,17 +2,16 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
 import { NGXLogger } from "ngx-logger";
-import { AsyncPipe } from "@angular/common";
 import { TranslationService } from '../services';
 
 @Component({
 	selector: 'nw-root',
 	standalone: true,
-	imports: [RouterOutlet, TranslateModule, AsyncPipe],
+	imports: [RouterOutlet, TranslateModule],
 	template: `
-		@if (translationService.tx$ | async; as translate) {
+		@if (translationService.translationKeys(); as tr) {
 			<h1 class="text-3xl font-bold underline">
-				{{ translate.i18n.currentLanguage({ lang: currentLocale().localeSpecificName ?? currentLocale().code }) }}
+				{{ tr.i18n.currentLanguage({ lang: currentLocale().localeSpecificName ?? currentLocale().code }) }}
 			</h1>
 			@for (locale of translationService.availableLocales(); track locale) {
 				<button class="ml-2 bg-amber-100 p-2 rounded-xl" (click)="translationService.useLocale(locale.code)">

@@ -1,8 +1,8 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable, Signal, signal } from "@angular/core";
 import { LocaleCode, TranslationKeys } from "../../../gen";
 import { NGXLogger } from "ngx-logger";
 import { type LangChangeEvent, TranslateService } from "@ngx-translate/core";
-import { map, Observable, tap } from "rxjs";
+import { map, tap } from "rxjs";
 import {
 	createDirectionChangeHandler,
 	createPersistenceStrategy,
@@ -11,6 +11,7 @@ import {
 	type Locale,
 	type LocaleDirection
 } from "../../../lib";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 type CallableLeaf<T> = {
 	[K in keyof T]: T[K] extends object
@@ -31,7 +32,7 @@ export class TranslationService {
 
 	constructor(private readonly logger: NGXLogger, private readonly service: TranslateService) {
 
-		const resolveLocaleDetailsFormEvent = map((event: LangChangeEvent) => this.resolveLocaleDetailsFormEvent(event));
+		const resolveLocaleDetailsFromEvent = map((event: LangChangeEvent) => this.resolveLocaleDetailsFromEvent(event));
 		const setCurrentLocale = tap(({ locale }: LocaleDetails) => {
 			this._currentLocale.set(locale);
 			this.logger.debug(`Language changed to "${locale.code}".`);
@@ -40,13 +41,12 @@ export class TranslationService {
 		const handleDirChange = tap(({ locale: { direction } }: LocaleDetails) => this.handleDirChange(direction));
 		const buildTranslationsObservable = map(({ translations }: LocaleDetails) => this.createCallableLeaf(translations));
 
-		this.tx$ = service.onLangChange.asObservable()
-
-			.pipe(resolveLocaleDetailsFormEvent)
+		this.translationKeys = toSignal(service.onLangChange.asObservable()
+			.pipe(resolveLocaleDetailsFromEvent)
 			.pipe(setCurrentLocale)
 			.pipe(persistLocale)
 			.pipe(handleDirChange)
-			.pipe(buildTranslationsObservable);
+			.pipe(buildTranslationsObservable));
 	}
 
 	private i18nConfig = inject<I18nConfig>(I18N_CONFIG);
@@ -105,7 +105,7 @@ export class TranslationService {
 		this.logger.debug(`Persisting locale "${locale} according to strategy "${strategy.constructor.name}".`);
 		await strategy.persistLocale(localeObject);
 	}
-	private resolveLocaleDetailsFormEvent(event: LangChangeEvent): LocaleDetails {
+	private resolveLocaleDetailsFromEvent(event: LangChangeEvent): LocaleDetails {
 		return {
 			locale: (this.getLocaleObject(event.lang) ?? this.i18nConfig.locales[0]),
 			translations: event.translations
@@ -120,7 +120,7 @@ export class TranslationService {
 		});
 	}
 
-	public tx$: Observable<CallableLeaf<TranslationKeys>>;
+	public translationKeys: Signal<CallableLeaf<TranslationKeys> | undefined>;
 	public useLocale(locale: LocaleCode) {
 		if (this._currentLocale().code === locale) {
 			this.logger.warn(`Locale "${locale}" is already in use.`);

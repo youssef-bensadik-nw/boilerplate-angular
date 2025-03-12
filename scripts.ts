@@ -1,3 +1,5 @@
-import { generateTranslationKeysType } from "./src/gen/script";
+import { generateTranslationKeysType } from "gen/script";
 
-generateTranslationKeysType();
+generateTranslationKeysType().then(() => {
+	console.log("Translation key type generated successfully!");
+});

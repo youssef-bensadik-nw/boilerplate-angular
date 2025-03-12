@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
-import { I18N_CONFIG, type I18nConfig, initI18n } from '../../../lib';
+import { I18N_CONFIG, type I18nConfig, initI18n } from '@lib';
 import { isPlatformBrowser } from '@angular/common';
 
 

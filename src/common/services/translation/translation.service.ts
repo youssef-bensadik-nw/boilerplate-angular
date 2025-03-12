@@ -1,5 +1,5 @@
 import { Injectable, Signal, inject, signal } from "@angular/core";
-import { LocaleCode, TranslationKeys } from "../../../../gen";
+import type { LocaleCode, TranslationKeys } from "@gen";
 import { NGXLogger } from "ngx-logger";
 import { type LangChangeEvent, TranslateService } from "@ngx-translate/core";
 import { map, tap } from "rxjs";
@@ -10,7 +10,7 @@ import {
 	type LocaleDirection,
 	createDirectionChangeHandler,
 	createPersistenceStrategy
-} from "../../../../lib";
+} from "@lib";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 type CallableLeaf<T> = {

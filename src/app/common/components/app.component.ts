@@ -12,10 +12,7 @@ import { TranslationService } from '../services';
 	template: `
 		@if (translationService.tx$ | async; as translate) {
 			<h1 class="text-3xl font-bold underline">
-				{{ translate.i18n.currentLanguage(
-					translationService.currentLocale().localeSpecificName ??
-					translationService.currentLocale().code)
-				}}
+				{{ translate.i18n.currentLanguage({ lang: currentLocale().localeSpecificName ?? currentLocale().code }) }}
 			</h1>
 			@for (locale of translationService.availableLocales(); track locale) {
 				<button class="ml-2 bg-amber-100 p-2 rounded-xl" (click)="translationService.useLocale(locale.code)">
@@ -30,4 +27,5 @@ import { TranslationService } from '../services';
 export class AppComponent {
 	private readonly logger = inject(NGXLogger);
 	protected readonly translationService = inject(TranslationService);
+	protected readonly currentLocale = this.translationService.currentLocale;
 }

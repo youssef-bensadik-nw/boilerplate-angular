@@ -7,6 +7,6 @@
 		"save": "Enregistrer"
 	},
 	"i18n": {
-		"currentLanguage": "La langue actuelle est {0}"
+		"currentLanguage": "La langue actuelle est {lang}"
 	}
 }

@@ -7,6 +7,6 @@
 		"save": "حفظ"
 	},
 	"i18n": {
-		"currentLanguage": "اللغة الحالية هي {0}"
+		"currentLanguage": "اللغة الحالية هي {lang}"
 	}
 }

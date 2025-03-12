@@ -15,7 +15,7 @@ import {
 type CallableLeaf<T> = {
 	[K in keyof T]: T[K] extends object
 		? CallableLeaf<T[K]>
-		: (...args: string[]) => T[K];
+		: (args: Record<string, string> | undefined) => T[K];
 };
 
 type RefinedLocale = {
@@ -41,6 +41,7 @@ export class TranslationService {
 		const buildTranslationsObservable = map(({ translations }: LocaleDetails) => this.createCallableLeaf(translations));
 
 		this.tx$ = service.onLangChange.asObservable()
+
 			.pipe(resolveLocaleDetailsFormEvent)
 			.pipe(setCurrentLocale)
 			.pipe(persistLocale)
@@ -68,16 +69,24 @@ export class TranslationService {
 			}
 
 			// @ts-ignore
-			callableLeaf[key] = (...args: string[]): string => {
+			callableLeaf[key] = (args?: Record<string, string>): string => {
 				// @ts-ignore
 				let translation = String(translations[key]);
-				const placeholders = translation.match(/{\d+}/g) || [];
+				if (!args) {
+					return translation;
+				}
+				const placeholders = translation.match(/{[^}]+}/g) || [];
 				if (placeholders.length === 0) {
 					return translation;
 				}
 				const values = placeholders.map((placeholder) => {
-					const index = Number(placeholder.slice(1, -1));
-					return args[index];
+					const index = placeholder.slice(1, -1);
+					const value = args[index];
+					if (!value) {
+						this.logger.warn(`No value provided for placeholder "${index}" in translation key "${key}".`);
+						return "";
+					}
+					return value;
 				});
 				placeholders.forEach((placeholder, index) => {
 					translation = translation.replace(placeholder, values[index]);

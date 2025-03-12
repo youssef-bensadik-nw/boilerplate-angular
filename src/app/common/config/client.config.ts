@@ -11,7 +11,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideI18n } from "../../../lib";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
-import { provideAppInitializer } from "../app.init";
+import { provideAppInitializer } from "../initializers";
 import { i18nConfig } from "./i18n.config";
 
 const loggerProvider = LoggerModule.forRoot({

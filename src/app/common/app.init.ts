@@ -1,6 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
 import { APP_INITIALIZER, Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
 import { I18N_CONFIG, type I18nConfig, initI18n } from '../../lib';
+import { isPlatformBrowser } from '@angular/common';
 
 
 interface ClientOnlyInitializersParams {
@@ -38,8 +38,8 @@ export function initializeAppFactory(injector: Injector) {
 
 		await runInInjectionContext(injector, sharedInitializers);
 
-		const platformId = injector.get(PLATFORM_ID);
-		const i18nConfig = injector.get<I18nConfig>(I18N_CONFIG);
+		const platformId = injector.get(PLATFORM_ID),
+		 i18nConfig = injector.get<I18nConfig>(I18N_CONFIG);
 
 		if (!isPlatformBrowser(platformId)) {
 			await runInInjectionContext(injector, serverOnlyInitializers);

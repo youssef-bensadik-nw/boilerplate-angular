@@ -9,14 +9,8 @@ type LocalePersistenceStrategyCtor = new (config: I18nConfig) => LocalePersisten
 
 type DirectionChangeHandlerCtor = new (dir: LocaleDirection) => DirectionChangeHandler;
 
-export const createResolver = (ctor: LocaleResolverCtor, config: I18nConfig) => {
-	return new ctor(config);
-};
+export const createResolver = (ctor: LocaleResolverCtor, config: I18nConfig) => new ctor(config);
 
-export const createPersistenceStrategy = (ctor: LocalePersistenceStrategyCtor, config: I18nConfig) => {
-	return new ctor(config);
-}
+export const createPersistenceStrategy = (ctor: LocalePersistenceStrategyCtor, config: I18nConfig) => new ctor(config)
 
-export const createDirectionChangeHandler = (ctor: DirectionChangeHandlerCtor, dir: LocaleDirection) => {
-	return new ctor(dir);
-}
+export const createDirectionChangeHandler = (ctor: DirectionChangeHandlerCtor, dir: LocaleDirection) => new ctor(dir)

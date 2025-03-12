@@ -1,9 +1,9 @@
 import {
-	type I18nConfig,
 	DefaultLocaleResolver,
+	type I18nConfig,
+	LocalStorageLocalePersistenceStrategy,
 	LocalStorageLocaleResolver,
 	NavigatorLocaleResolver,
-	LocalStorageLocalePersistenceStrategy,
 	UpdateBodyDirAttributeDirectionChangeHandler
 } from "../../../lib";
 

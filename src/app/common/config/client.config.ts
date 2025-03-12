@@ -1,7 +1,7 @@
 import {
-	isDevMode,
 	ApplicationConfig,
 	importProvidersFrom,
+	isDevMode,
 	provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';

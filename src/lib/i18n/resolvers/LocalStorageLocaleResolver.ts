@@ -10,9 +10,9 @@ export class LocalStorageLocaleResolver implements LocaleResolver {
 
 	public async getLocale(): Promise<Locale | null> {
 
-		const availableLocalesCodes = this.config.locales.map(locale => locale.code);
+		const availableLocalesCodes = this.config.locales.map(locale => locale.code),
 
-		const key = this.config.persistenceKey;
+		 key = this.config.persistenceKey;
 		if (key === undefined) {
 			return null;
 		}

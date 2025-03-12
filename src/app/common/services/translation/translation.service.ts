@@ -1,16 +1,16 @@
-import { inject, Injectable, Signal, signal } from "@angular/core";
-import { LocaleCode, TranslationKeys } from "../../../gen";
+import { Injectable, Signal, inject, signal } from "@angular/core";
+import { LocaleCode, TranslationKeys } from "../../../../gen";
 import { NGXLogger } from "ngx-logger";
 import { type LangChangeEvent, TranslateService } from "@ngx-translate/core";
 import { map, tap } from "rxjs";
 import {
-	createDirectionChangeHandler,
-	createPersistenceStrategy,
 	I18N_CONFIG,
 	I18nConfig,
 	type Locale,
-	type LocaleDirection
-} from "../../../lib";
+	type LocaleDirection,
+	createDirectionChangeHandler,
+	createPersistenceStrategy
+} from "../../../../lib";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 type CallableLeaf<T> = {
@@ -32,14 +32,14 @@ export class TranslationService {
 
 	constructor(private readonly logger: NGXLogger, private readonly service: TranslateService) {
 
-		const resolveLocaleDetailsFromEvent = map((event: LangChangeEvent) => this.resolveLocaleDetailsFromEvent(event));
-		const setCurrentLocale = tap(({ locale }: LocaleDetails) => {
+		const resolveLocaleDetailsFromEvent = map((event: LangChangeEvent) => this.resolveLocaleDetailsFromEvent(event)),
+		 setCurrentLocale = tap(({ locale }: LocaleDetails) => {
 			this._currentLocale.set(locale);
 			this.logger.debug(`Language changed to "${locale.code}".`);
-		});
-		const persistLocale = tap(async ({ locale: { code }  }: LocaleDetails) => await this.persist(code));
-		const handleDirChange = tap(({ locale: { direction } }: LocaleDetails) => this.handleDirChange(direction));
-		const buildTranslationsObservable = map(({ translations }: LocaleDetails) => this.createCallableLeaf(translations));
+		}),
+		 persistLocale = tap(async ({ locale: { code }  }: LocaleDetails) => await this.persist(code)),
+		 handleDirChange = tap(({ locale: { direction } }: LocaleDetails) => this.handleDirChange(direction)),
+		 buildTranslationsObservable = map(({ translations }: LocaleDetails) => this.createCallableLeaf(translations));
 
 		this.translationKeys = toSignal(service.onLangChange.asObservable()
 			.pipe(resolveLocaleDetailsFromEvent)
@@ -80,8 +80,8 @@ export class TranslationService {
 					return translation;
 				}
 				const values = placeholders.map((placeholder) => {
-					const index = placeholder.slice(1, -1);
-					const value = args[index];
+					const index = placeholder.slice(1, -1),
+					 value = args[index];
 					if (!value) {
 						this.logger.warn(`No value provided for placeholder "${index}" in translation key "${key}".`);
 						return "";

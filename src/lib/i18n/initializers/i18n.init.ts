@@ -8,15 +8,15 @@ import { createPersistenceStrategy, createResolver } from "../ctor";
 
 export async function initI18n(config: I18nConfig) {
 
-	const logger = inject(NGXLogger);
-	const translateService = inject(TranslateService);
-	const locales = config.locales.map(locale => locale.code);
+	const logger = inject(NGXLogger),
+	 translateService = inject(TranslateService),
+	 locales = config.locales.map(locale => locale.code);
 
 	logger.debug("Available locales", locales);
 	translateService.addLangs(locales);
 
-	let locale: Locale | null = null;
-	let resolverName = "";
+	let locale: Locale | null = null,
+	 resolverName = "";
 	for (const { resolver: Resolver, persistenceStrategy: PersistenceStrategy } of config.resolvers) {
 		const resolver = createResolver(Resolver, config);
 		resolverName = resolver.constructor.name;

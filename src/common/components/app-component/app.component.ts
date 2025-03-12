@@ -3,13 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
-	selector: 'nw-root',
-	standalone: true,
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterOutlet, TranslateModule],
-	template: `
+    selector: 'nw-root',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterOutlet, TranslateModule],
+    template: `
 		<router-outlet />
 	`,
-	styles: [],
+    styles: []
 })
 export class AppComponent {}

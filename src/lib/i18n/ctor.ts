@@ -3,17 +3,11 @@ import type { LocaleResolver } from "./resolvers";
 import type { LocalePersistenceStrategy } from "./persistence-strategies";
 import type { DirectionChangeHandler } from "./direction-change-handlers";
 
-interface LocaleResolverCtor {
-	new (config: I18nConfig): LocaleResolver;
-}
+type LocaleResolverCtor = new (config: I18nConfig) => LocaleResolver;
 
-interface LocalePersistenceStrategyCtor {
-	new (config: I18nConfig): LocalePersistenceStrategy;
-}
+type LocalePersistenceStrategyCtor = new (config: I18nConfig) => LocalePersistenceStrategy;
 
-interface DirectionChangeHandlerCtor {
-	new (dir: LocaleDirection): DirectionChangeHandler;
-}
+type DirectionChangeHandlerCtor = new (dir: LocaleDirection) => DirectionChangeHandler;
 
 export const createResolver = (ctor: LocaleResolverCtor, config: I18nConfig) => {
 	return new ctor(config);

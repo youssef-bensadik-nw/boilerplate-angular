@@ -19,13 +19,13 @@ type CallableLeaf<T> = {
 		: (args: Record<string, string> | undefined) => T[K];
 };
 
-type RefinedLocale = {
+interface RefinedLocale {
 	code: LocaleCode
 	localeSpecificName?: string,
 	direction: LocaleDirection,
-};
+}
 
-type LocaleDetails = { locale: Locale, translations: TranslationKeys }
+interface LocaleDetails { locale: Locale, translations: TranslationKeys }
 
 @Injectable({ providedIn: "root" })
 export class TranslationService {
@@ -63,14 +63,14 @@ export class TranslationService {
 		const callableLeaf = {} as CallableLeaf<TranslationKeys>;
 		for (const key in translations) {
 			if (typeof translations[key as keyof TranslationKeys] === "object") {
-				// @ts-ignore
+				// @ts-expect-error - need to figure out the type of the object
 				callableLeaf[key] = this.createCallableLeaf(translations[key]);
 				continue;
 			}
 
-			// @ts-ignore
+			// @ts-expect-error - same as above
 			callableLeaf[key] = (args?: Record<string, string>): string => {
-				// @ts-ignore
+				// @ts-expect-error - same as above
 				let translation = String(translations[key]);
 				if (!args) {
 					return translation;

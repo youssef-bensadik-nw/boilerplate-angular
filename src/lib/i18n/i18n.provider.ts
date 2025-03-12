@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
-import { httpLoaderFactory } from "./i18n.init";
+import { httpLoaderFactory } from "./initializers";
 import { I18nConfig } from "./types";
 import { InjectionToken, Provider } from "@angular/core";
 

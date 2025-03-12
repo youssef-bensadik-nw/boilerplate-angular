@@ -1,12 +1,16 @@
 import { isPlatformBrowser } from '@angular/common';
 import { APP_INITIALIZER, Injector, PLATFORM_ID, runInInjectionContext } from "@angular/core";
-import { i18nConfig } from "./config/i18n.config";
-import { initI18n } from '../../lib';
+import { I18N_CONFIG, type I18nConfig, initI18n } from '../../lib';
+
+
+interface ClientOnlyInitializersParams {
+	i18nConfig: I18nConfig;
+}
 
 /**
  * Initializers that should only run on the client side
  */
-async function clientOnlyInitializers() {
+async function clientOnlyInitializers({ i18nConfig }: ClientOnlyInitializersParams) {
 	await initI18n(i18nConfig);
 }
 
@@ -35,13 +39,14 @@ export function initializeAppFactory(injector: Injector) {
 		await runInInjectionContext(injector, sharedInitializers);
 
 		const platformId = injector.get(PLATFORM_ID);
+		const i18nConfig = injector.get<I18nConfig>(I18N_CONFIG);
 
 		if (!isPlatformBrowser(platformId)) {
 			await runInInjectionContext(injector, serverOnlyInitializers);
 			return;
 		}
 
-		await runInInjectionContext(injector, clientOnlyInitializers);
+		await runInInjectionContext(injector, async () => await clientOnlyInitializers({ i18nConfig }));
 
 	}
 }

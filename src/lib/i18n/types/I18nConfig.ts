@@ -6,11 +6,11 @@ import type { DirectionChangeHandler } from "../direction-change-handlers";
 
 export interface I18nConfig {
 	locales: Locale[],
-	resolvers: Array<{
+	resolvers: {
 		resolver: new (config: I18nConfig) => LocaleResolver,
 		persistenceStrategy?: new (config: I18nConfig) => LocalePersistenceStrategy,
-	}>,
-	directionChangeHandlers: Array<new (dir: LocaleDirection) => DirectionChangeHandler>,
+	}[],
+	directionChangeHandlers: (new (dir: LocaleDirection) => DirectionChangeHandler)[],
 	localeChangePersistenceStrategy: new (config: I18nConfig) => LocalePersistenceStrategy,
 	persistenceKey?: string,
 	translationPath: string,

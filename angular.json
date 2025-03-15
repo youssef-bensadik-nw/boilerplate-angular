@@ -40,7 +40,7 @@
               }
             ],
             "styles": [
-              "lib/theming/styles.scss"
+              "src/common/theming/styles.scss"
             ],
             "scripts": [],
             "server": "src/common/entrypoints/main.server.ts",
@@ -104,7 +104,7 @@
               }
             ],
             "styles": [
-              "lib/theming/styles.scss"
+              "src/common/theming/styles.scss"
             ],
             "scripts": []
           }

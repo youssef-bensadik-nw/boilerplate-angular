@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'nw-root',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RouterOutlet, TranslateModule],
+    imports: [RouterOutlet, MatSlideToggleModule, TranslateModule],
     template: `
+		<mat-slide-toggle>Toggle me!</mat-slide-toggle>
 		<router-outlet />
 	`,
     styles: []

@@ -26,8 +26,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/boilerplate-angular",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "index": "src/common/entrypoints/index.html",
+            "browser": "src/common/entrypoints/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -43,7 +43,7 @@
               "lib/theming/styles.scss"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
+            "server": "src/common/entrypoints/main.server.ts",
             "prerender": true,
             "ssr": {
               "entry": "server.ts"

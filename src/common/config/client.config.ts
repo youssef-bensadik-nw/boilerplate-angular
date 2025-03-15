@@ -8,10 +8,10 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './routes.config';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideI18n } from "@lib";
+import { provideI18n } from "../i18n";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
-import { provideAppInitializer } from "../initializers";
+import { provideAppInitializer } from "../entrypoints/app.init";
 import { i18nConfig } from "./i18n.config";
 
 const loggerProvider = LoggerModule.forRoot({

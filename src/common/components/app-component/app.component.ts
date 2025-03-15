@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule } from "@ngx-translate/core";
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslationService } from 'src/common/i18n';
 
 @Component({
     selector: 'nw-root',
-    imports: [RouterOutlet, MatSlideToggleModule, TranslateModule],
+    imports: [RouterOutlet, MatIconModule, MatButtonModule],
     template: `
-		<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+		@if (translationService.translationKeys(); as tr) {
+			<button mat-fab extended aria-label="Example icon button with a delete icon">
+				<mat-icon>delete</mat-icon>
+				<span>{{ tr.actions.delete }}</span>
+			</button>
+		}
 		<router-outlet />
 	`,
     styles: []
 })
-export class AppComponent {}
+export class AppComponent {
+	translationService = inject(TranslationService);
+}

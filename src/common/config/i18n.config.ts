@@ -5,7 +5,7 @@ import {
 	LocalStorageLocaleResolver,
 	NavigatorLocaleResolver,
 	UpdateBodyDirAttributeDirectionChangeHandler
-} from "@lib";
+} from "../i18n";
 
 export const i18nConfig: I18nConfig = {
 

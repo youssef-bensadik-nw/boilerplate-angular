@@ -5,3 +5,4 @@ export * from './persistence-strategies';
 export * from './direction-change-handlers';
 export * from './initializers';
 export * from './ctor';
+export * from './services';

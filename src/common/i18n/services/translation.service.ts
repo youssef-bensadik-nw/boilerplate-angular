@@ -10,13 +10,13 @@ import {
 	type LocaleDirection,
 	createDirectionChangeHandler,
 	createPersistenceStrategy
-} from "@lib";
+} from "..";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 type CallableLeaf<T> = {
 	[K in keyof T]: T[K] extends object
 		? CallableLeaf<T[K]>
-		: (args: Record<string, string> | undefined) => T[K];
+		: string & ((args: Record<string, string>) => T[K]);
 };
 
 interface RefinedLocale {
@@ -69,9 +69,10 @@ export class TranslationService {
 			}
 
 			// @ts-expect-error - same as above
-			callableLeaf[key] = (args?: Record<string, string>): string => {
-				// @ts-expect-error - same as above
-				let translation = String(translations[key]);
+			let translation = String(translations[key]);
+
+			const callableFn = (args?: Record<string, string>): string => {
+
 				if (!args) {
 					return translation;
 				}
@@ -93,6 +94,17 @@ export class TranslationService {
 				});
 				return translation;
 			}
+
+			Object.defineProperty(callableLeaf, key, {
+				configurable: true,
+				enumerable: true,
+				get: function() {
+					callableFn.toString = function() {
+						return translation;
+					};
+					return callableFn;
+				}
+			});
 		}
 		return callableLeaf;
     }

@@ -1,17 +1,6 @@
 @use "tailwind";
-@use '@angular/material' as mat;
+@use "material";
+@use "theme";
 
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

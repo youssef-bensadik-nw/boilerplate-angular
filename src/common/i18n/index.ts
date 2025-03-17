@@ -1,8 +1,10 @@
 export * from './providers';
-export * from './types';
 export * from './resolvers';
 export * from './persistence-strategies';
 export * from './direction-change-handlers';
 export * from './initializers';
-export * from './ctor';
-export * from './services';
+export type { I18nConfig } from './types';
+export {
+	TranslationService,
+	FakeTranslationService
+} from './services';

@@ -3,7 +3,7 @@
 {
 	packages = with pkgs; [
 		pnpm
-		nodejs_23
+		nodejs_22
 		nodePackages."@angular/cli"
 	];
 }

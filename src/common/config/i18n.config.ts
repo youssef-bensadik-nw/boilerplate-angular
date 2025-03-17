@@ -1,6 +1,6 @@
 import {
-	DefaultLocaleResolver,
 	type I18nConfig,
+	DefaultLocaleResolver,
 	LocalStorageLocalePersistenceStrategy,
 	LocalStorageLocaleResolver,
 	NavigatorLocaleResolver,

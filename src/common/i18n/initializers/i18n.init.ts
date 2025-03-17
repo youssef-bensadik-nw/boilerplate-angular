@@ -4,7 +4,8 @@ import { inject } from "@angular/core";
 import type { I18nConfig, Locale } from "../types";
 import { HttpClient } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { createPersistenceStrategy, createResolver } from "../ctor";
+import { createResolver } from "../resolvers";
+import { createPersistenceStrategy } from "../persistence-strategies";
 
 export async function initI18n(config: I18nConfig) {
 

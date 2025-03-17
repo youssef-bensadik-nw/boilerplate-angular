@@ -18,7 +18,7 @@ export async function generateTranslationKeysType(){
 	const translationTypesUnion = translationFiles
 		.map((_, index) => `TTranslationJson${index}`)
 		.join(" | ");
-	const localeCodes = i18nConfig.locales.map(l => `'${l.code}'`).join(" | ");
+	const localeCodes = i18nConfig.locales.map(l => `'${l.code}'`).join(", ");
 
 	const localeCodeContent = LocaleCodeTemplate({
 		localeCodes

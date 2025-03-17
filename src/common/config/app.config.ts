@@ -2,6 +2,7 @@ import {
 	ApplicationConfig,
 	importProvidersFrom,
 	isDevMode,
+	mergeApplicationConfig,
 	provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -13,6 +14,7 @@ import { provideHttpClient, withFetch } from "@angular/common/http";
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import { provideAppInitializer } from "../entrypoints/app.init";
 import { i18nConfig } from "./i18n.config";
+import { provideServerRendering } from '@angular/platform-server';
 
 const loggerProvider = LoggerModule.forRoot({
 	level: isDevMode() ? NgxLoggerLevel.DEBUG : NgxLoggerLevel.INFO,
@@ -32,3 +34,9 @@ export const clientConfig: ApplicationConfig = {
 		]),
 	]
 };
+
+export const serverConfig = mergeApplicationConfig(clientConfig, {
+	providers: [
+		provideServerRendering()
+	]
+});

@@ -1,18 +1,20 @@
 import "@angular/compiler";
 
-import { i18nConfig } from "../src/common/config/i18n.config";
 import {
 	LocaleCodeTemplate,
 	TranslationKeysTemplate
 } from "./templates";
 import { watch } from "fs";
 import { debounceTime, Subject, tap } from "rxjs";
+import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
+
+const i18nConfig = new I18nConfigUseCase().handle();
 
 async function _generateTranslationKeysType(){
 
 	const translationFiles = i18nConfig.locales.map(l => `${l.code}.json`);
 	const translationFilesImports = translationFiles
-		.map((file, index) => `import translationJson${index} from '../public/${i18nConfig.translationPath}/${file}';`)
+		.map((file, index) => `import translationJson${index} from '~public/${i18nConfig.translationPath}/${file}';`)
 		.join("\n");
 	const translationTypesList = translationFiles
 		.map((_, index) => `type TTranslationJson${index} = typeof translationJson${index};`)
@@ -20,13 +22,15 @@ async function _generateTranslationKeysType(){
 	const translationTypesUnion = translationFiles
 		.map((_, index) => `TTranslationJson${index}`)
 		.join(" | ");
-	const localeCodes = i18nConfig.locales.map(l => `'${l.code}'`).join(", ");
+	const localeCodes = i18nConfig.locales
+		.map(l => `'${l.code}'`)
+		.join(" | ");
 
-	await Bun.write("./gen/locale-code.ts", LocaleCodeTemplate({
+	await Bun.write("./src/features/i18n/domain/types/LocaleCode.ts", LocaleCodeTemplate({
 		localeCodes
 	}), { mode: 1 });
 
-	await Bun.write("./gen/translation-keys.ts", TranslationKeysTemplate({
+	await Bun.write("./src/features/i18n/domain/types/TranslationKeys.ts", TranslationKeysTemplate({
 		translationFilesImports,
 		translationTypesList,
 		translationTypesUnion

@@ -3,7 +3,7 @@ import { generateTranslationKeysType, generateTranslationKeysTypeNoWatch } from 
 const watch = Bun.argv.includes("--watch");
 
 function onTranslationKeysTypeGenerated() {
-	console.info("\x1b[32m🔄Translation keys type generated successfully!\x1b[0m\n");
+	console.info("\x1b[32m\n🔄Translation keys type generated successfully!\x1b[0m\n");
 
 }
 

@@ -1,6 +1,5 @@
 @use "tailwind";
 @use "material";
-@use "theme";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

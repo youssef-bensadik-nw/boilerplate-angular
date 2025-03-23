@@ -21,7 +21,9 @@
 		"module": "ES2022",
 		"baseUrl": "./",
 		"paths": {
-			"@gen": ["gen/index.ts"]
+			"~public/*": ["public/*"],
+			"~common/*": ["src/common/*"],
+			"~features/i18n/*": ["src/features/i18n/*"],
 		},
 		"lib": [
 			"ES2022",

@@ -1,9 +1,9 @@
 import { filter, map, type Observable } from "rxjs";
-import { UseCase } from "~common/domain/usecases/usecase";
+import { Injectable } from "~common/domain/utils/Injectable";
 import type { Locale } from "~features/i18n/domain/types/Locale";
 import { LocalePort } from "~features/i18n/domain/ports/locale.port";
 
-export class CurrentLocaleUseCase extends UseCase {
+export class CurrentLocaleUseCase extends Injectable {
 
 	private readonly locale = this.inject(LocalePort);
 

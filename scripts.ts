@@ -10,7 +10,7 @@ function onTranslationKeysTypeGenerated() {
 if (watch) {
 	generateTranslationKeysType([
 		"./public/translations",
-		"./src/common/config"
+		"./src/features/i18n/domain/usecases/i18n-config"
 	]).subscribe(onTranslationKeysTypeGenerated);
 } else {
 	generateTranslationKeysTypeNoWatch()

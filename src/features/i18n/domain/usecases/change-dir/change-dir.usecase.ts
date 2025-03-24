@@ -1,4 +1,4 @@
-import { UseCase } from "~common/domain/usecases/usecase";
+import { Injectable } from "~common/domain/utils/Injectable";
 import { LocalePort } from "~features/i18n/domain/ports/locale.port";
 import { filter, map, type Observable } from "rxjs";
 import type { LocaleDirection } from "~features/i18n/domain/types/LocaleDirection";
@@ -8,7 +8,7 @@ import { createDirectionChangeHandler } from "~features/i18n/domain/strategies/d
 
 const DEFAULT_DIRECTION = "ltr";
 
-export class ChangeDirUseCase extends UseCase {
+export class ChangeDirUseCase extends Injectable {
 
 	private readonly logger = this.inject(LoggerPort);
 	private readonly locale = this.inject(LocalePort);

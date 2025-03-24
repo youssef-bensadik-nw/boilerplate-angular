@@ -8,7 +8,7 @@ import {
 
 import { isPlatformBrowser } from '@angular/common';
 import { initI18n } from "~features/i18n/config/i18n.init";
-import { UseCase } from "~common/domain/usecases/usecase";
+import { Injectable } from "~common/domain/utils/Injectable";
 
 /**
  * Initializers that should only run on the client side
@@ -54,7 +54,7 @@ export const provideAppInitializer  = () => _provideAppInitializer(() => {
 	const injector = inject(Injector);
 
 	//@ts-expect-error: Override readonly property to enable dependency injection in domain
-	UseCase.ɵinjector = injector;
+	Injectable.ɵinjector = injector;
 
 	initializeAppFactory(injector);
 });

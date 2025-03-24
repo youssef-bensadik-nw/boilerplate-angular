@@ -3,9 +3,9 @@ import type { TranslationKeys } from "~features/i18n/domain/types/TranslationKey
 import { LocalePort } from "~features/i18n/domain/ports/locale.port";
 import { LoggerPort } from "~common/domain/ports/logger.port";
 import type { CallableLeaf } from "~features/i18n/domain/types/CallableLeaf";
-import { UseCase } from "~common/domain/usecases/usecase";
+import { Injectable } from "~common/domain/utils/Injectable";
 
-export class TranslationKeysUseCase extends UseCase {
+export class TranslationKeysUseCase extends Injectable {
 
 	private readonly logger = this.inject(LoggerPort);
 	private readonly locale = this.inject(LocalePort);

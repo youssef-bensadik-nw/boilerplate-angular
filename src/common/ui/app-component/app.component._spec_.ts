@@ -1,6 +1,5 @@
 import { TestBed } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
-import { FakeTranslationService, TranslationService } from "../../i18n";
 
 const trKeys = {
 	actions: { delete: "Delete" }
@@ -11,10 +10,6 @@ describe("AppComponent", () => {
 		await TestBed.configureTestingModule({
 			imports: [AppComponent],
 			providers: [
-				{
-					provide: TranslationService,
-					useValue: new FakeTranslationService(trKeys)
-				}
 			]
 		}).compileComponents();
 	});

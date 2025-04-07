@@ -14,7 +14,11 @@
 		"preset": "jest-preset-angular",
 		"setupFilesAfterEnv": [
 			"<rootDir>/setup-jest.ts"
-		]
+		],
+		"moduleNameMapper": {
+			"^~common/(.*)$": "<rootDir>/src/common/$1",
+			"^~features/(.*)$": "<rootDir>/src/features/$1"
+		}
 	},
 	"private": true,
 	"dependencies": {

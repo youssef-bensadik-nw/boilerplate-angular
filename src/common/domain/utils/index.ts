@@ -1,2 +1,2 @@
 export * from "./Injectable";
-export * from "./create-usecase-with-providers.utils";
+export * from "./create-injectable-with-providers.utils";

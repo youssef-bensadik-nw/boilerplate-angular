@@ -9,10 +9,12 @@ export class LocaleFake implements LocalePort {
 	private _currentLocale$ = new BehaviorSubject<LocaleDetails | undefined>(undefined);
     public currentLocale$: Observable<LocaleDetails | undefined> = this._currentLocale$.asObservable();
 
+	constructor(private readonly translations: object = {}) {}
+
     public setCurrent(locale: Locale): void {
 		this._currentLocale$.next({
 			locale,
-			translations: {} as TranslationKeys
+			translations: this.translations as TranslationKeys
 		});
     }
 }

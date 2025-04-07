@@ -3,14 +3,14 @@ import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale/set-
 import { LocaleFake } from "~features/i18n/domain/ports/locale.fake";
 import { skip } from "rxjs";
 import { LocalePort } from "~features/i18n/domain/ports/locale.port";
-import { createUseCaseWithProviders } from "~common/domain/utils";
+import { createInjectableWithProviders } from "~common/domain/utils";
 
 describe("SetLocaleUseCase", () => {
 
 	const localeFake = new LocaleFake();
 
-	const setLocaleUseCase = createUseCaseWithProviders({
-		useCase: SetLocaleUseCase,
+	const setLocaleUseCase = createInjectableWithProviders({
+		injectable: SetLocaleUseCase,
 		providers: [
 			{ provide: LocalePort, useValue: localeFake }
 		]

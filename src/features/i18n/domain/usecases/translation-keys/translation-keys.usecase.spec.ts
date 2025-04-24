@@ -1,9 +1,8 @@
-import { LoggerFake } from "~common/domain/ports/logger.fake";
 import { LocaleFake } from "~features/i18n/domain/ports/locale.fake";
-import { TranslationKeysUseCase } from "~features/i18n/domain/usecases/translation-keys/translation-keys.usecase";
+import { TranslationKeysUseCase } from "~features/i18n/domain/usecases/translation-keys";
 import { createInjectableWithProviders } from "~common/domain/utils";
-import { LoggerPort } from "~common/domain/ports/logger.port";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LoggerPort, LoggerFake } from "~common/domain/ports/logger";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { Observable } from "rxjs";
 import { CallableLeaf } from "~features/i18n/domain/types/CallableLeaf";
 

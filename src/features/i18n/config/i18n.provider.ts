@@ -2,14 +2,14 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
 import { Provider } from "@angular/core";
 import { httpLoaderFactory } from "./i18n.init";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { LocaleAdapter } from "~features/i18n/infra/adapters/locale.adapter";
-import { TranslationKeysUseCase } from "~features/i18n/domain/usecases/translation-keys/translation-keys.usecase";
+import { TranslationKeysUseCase } from "~features/i18n/domain/usecases/translation-keys";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
-import { CurrentLocaleUseCase } from "~features/i18n/domain/usecases/current-locale/current-locale.usecase";
-import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale/set-locale.usecase";
-import { PersistLocaleUseCase } from "~features/i18n/domain/usecases/persist-locale/persist-locale.usecase";
-import { ChangeDirUseCase } from "~features/i18n/domain/usecases/change-dir/change-dir.usecase";
+import { CurrentLocaleUseCase } from "~features/i18n/domain/usecases/current-locale";
+import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
+import { PersistLocaleUseCase } from "~features/i18n/domain/usecases/persist-locale";
+import { ChangeDirUseCase } from "~features/i18n/domain/usecases/change-dir";
 
 export const provideI18n: () => Provider[] = function() {
 	const i18nConfigUseCase = new I18nConfigUseCase();

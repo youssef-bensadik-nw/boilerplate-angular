@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { LocalSelectorComponent } from "~features/i18n/ui/locale-selector/locale-selector.component";
-import { TranslationKeysUseCase } from '~features/i18n/domain/usecases/translation-keys/translation-keys.usecase';
-import { CurrentLocaleUseCase } from '~features/i18n/domain/usecases/current-locale/current-locale.usecase';
+import { LocalSelectorComponent } from "~features/i18n/ui/locale-selector";
+import { TranslationKeysUseCase } from '~features/i18n/domain/usecases/translation-keys';
+import { CurrentLocaleUseCase } from '~features/i18n/domain/usecases/current-locale';
 import { usecase } from '~common/ui/utils/usecase';
 
 

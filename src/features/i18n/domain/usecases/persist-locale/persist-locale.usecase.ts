@@ -1,10 +1,10 @@
 import { Injectable } from "~common/domain/utils/Injectable";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { filter, from, map, Observable, switchMap } from "rxjs";
 import { Locale } from "~features/i18n/domain/types/Locale";
 import { createPersistenceStrategy } from "~features/i18n/domain/strategies/persistence-strategies";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
-import { LoggerPort } from "~common/domain/ports/logger.port";
+import { LoggerPort } from "~common/domain/ports/logger";
 
 export class PersistLocaleUseCase extends Injectable {
 

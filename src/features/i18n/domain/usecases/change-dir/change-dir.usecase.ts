@@ -1,8 +1,8 @@
 import { Injectable } from "~common/domain/utils/Injectable";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { filter, map, type Observable } from "rxjs";
 import type { LocaleDirection } from "~features/i18n/domain/types/LocaleDirection";
-import { LoggerPort } from "~common/domain/ports/logger.port";
+import { LoggerPort } from "~common/domain/ports/logger";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
 import { createDirectionChangeHandler } from "~features/i18n/domain/strategies/direction-change-handlers";
 

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { type Observable, map } from "rxjs";
-import { LoggerPort } from "~common/domain/ports/logger.port";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LoggerPort } from "~common/domain/ports/logger";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
 import { I18nConfig } from "~features/i18n/domain/types/I18nConfig";
 import type { Locale } from "~features/i18n/domain/types/Locale";

@@ -1,7 +1,7 @@
 import { filter, map, type Observable } from "rxjs";
 import type { TranslationKeys } from "~features/i18n/domain/types/TranslationKeys";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
-import { LoggerPort } from "~common/domain/ports/logger.port";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
+import { LoggerPort } from "~common/domain/ports/logger";
 import type { CallableLeaf } from "~features/i18n/domain/types/CallableLeaf";
 import { Injectable } from "~common/domain/utils/Injectable";
 

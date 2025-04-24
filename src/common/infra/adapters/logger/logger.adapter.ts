@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { NGXLogger } from "ngx-logger";
-import { LoggerPort } from "~common/domain/ports/logger.port";
+import { LoggerPort } from "~common/domain/ports/logger";
 
 type LoggerMethod = "info" | "warn" | "error" | "debug" | "fatal";
 

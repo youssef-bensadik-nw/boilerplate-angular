@@ -1,8 +1,8 @@
 import { Locale } from "~features/i18n/domain/types/Locale";
-import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale/set-locale.usecase";
+import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
 import { LocaleFake } from "~features/i18n/domain/ports/locale.fake";
 import { skip } from "rxjs";
-import { LocalePort } from "~features/i18n/domain/ports/locale.port";
+import { LocalePort } from "~features/i18n/domain/ports/locale";
 import { createInjectableWithProviders } from "~common/domain/utils";
 
 describe("SetLocaleUseCase", () => {

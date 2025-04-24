@@ -3,7 +3,7 @@ import type { I18nConfig } from "~features/i18n/domain/types/I18nConfig";
 import {
 	DefaultLocaleResolver,
 	LocalStorageLocaleResolver,
-	NavigatorLocaleResolver,
+	DeviceLocaleResolver,
 } from "~features/i18n/domain/strategies/locale-resolvers";
 
 import {
@@ -51,7 +51,7 @@ export class I18nConfigUseCase {
 			* */
 			resolvers: [
 				{ resolver: LocalStorageLocaleResolver },
-				{ resolver: NavigatorLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy },
+				{ resolver: DeviceLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy },
 				{ resolver: DefaultLocaleResolver, persistenceStrategy: LocalStorageLocalePersistenceStrategy },
 			],
 

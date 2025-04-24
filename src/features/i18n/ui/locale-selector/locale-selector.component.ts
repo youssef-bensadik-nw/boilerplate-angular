@@ -3,9 +3,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { usecase } from "~common/ui/utils/usecase";
-import { CurrentLocaleUseCase } from "~features/i18n/domain/usecases/current-locale/current-locale.usecase";
+import { CurrentLocaleUseCase } from "~features/i18n/domain/usecases/current-locale";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
-import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale/set-locale.usecase";
+import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
 
 @Component({
 	selector: "nw-local-selector",

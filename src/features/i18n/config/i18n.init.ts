@@ -6,10 +6,10 @@ import type { I18nConfig } from "~features/i18n/domain/types/I18nConfig";
 import { Locale } from "~features/i18n/domain/types/Locale";
 import { createResolver } from "~features/i18n/domain/strategies/locale-resolvers";
 import { createPersistenceStrategy } from "~features/i18n/domain/strategies/persistence-strategies";
-import { LoggerPort } from "~common/domain/ports/logger.port";
+import { LoggerPort } from "~common/domain/ports/logger";
 import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
 import { PersistLocaleUseCase } from "~features/i18n/domain/usecases/persist-locale/persist-locale.usecase";
-import { ChangeDirUseCase } from "~features/i18n/domain/usecases/change-dir/change-dir.usecase";
+import { ChangeDirUseCase } from "~features/i18n/domain/usecases/change-dir";
 
 export async function initI18n() {
 

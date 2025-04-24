@@ -1,8 +1,8 @@
 import { BehaviorSubject, type Observable } from "rxjs";
 import type { LocalePort } from "./locale.port";
-import type { LocaleDetails } from "../types/LocaleDetails";
-import type { Locale } from "../types/Locale";
-import type { TranslationKeys } from "../types/TranslationKeys";
+import type { LocaleDetails } from "../../types/LocaleDetails";
+import type { Locale } from "../../types/Locale";
+import type { TranslationKeys } from "../../types/TranslationKeys";
 
 export class LocaleFake implements LocalePort {
 

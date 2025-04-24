@@ -7,31 +7,30 @@ import { Locale } from "~features/i18n/domain/types/Locale";
 import { createResolver } from "~features/i18n/domain/strategies/locale-resolvers";
 import { createPersistenceStrategy } from "~features/i18n/domain/strategies/persistence-strategies";
 import { LoggerPort } from "~common/domain/ports/logger";
-import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
 import { PersistLocaleUseCase } from "~features/i18n/domain/usecases/persist-locale/persist-locale.usecase";
 import { ChangeDirUseCase } from "~features/i18n/domain/usecases/change-dir";
+import { i18nConfig } from "~features/i18n/domain/i18n.config";
 
 export async function initI18n() {
 
 	const logger = inject(LoggerPort);
-	const config = inject(I18nConfigUseCase).handle();
 	const persist$ = inject(PersistLocaleUseCase).handle();
 	const dirChange$ = inject(ChangeDirUseCase).handle();
 	const translateService = inject(TranslateService);
-	const locales = config.locales.map(locale => locale.code);
+	const locales = i18nConfig.locales.map(locale => locale.code);
 
 	logger.debug("Available locales", locales);
 	translateService.addLangs(locales);
 
 	let locale: Locale | null = null,
 	resolverName = "";
-	for (const { resolver: Resolver, persistenceStrategy: PersistenceStrategy } of config.resolvers) {
-		const resolver = createResolver(Resolver, config);
+	for (const { resolver: Resolver, persistenceStrategy: PersistenceStrategy } of i18nConfig.resolvers) {
+		const resolver = createResolver(Resolver, i18nConfig);
 		resolverName = resolver.constructor.name;
 		locale = await resolver.getLocale();
 		if (locale !== null) {
 			if (PersistenceStrategy) {
-				await createPersistenceStrategy(PersistenceStrategy, config).persistLocale(locale);
+				await createPersistenceStrategy(PersistenceStrategy, i18nConfig).persistLocale(locale);
 			}
 			break;
 		}

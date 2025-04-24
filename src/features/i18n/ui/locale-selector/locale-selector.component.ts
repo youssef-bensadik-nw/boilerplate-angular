@@ -3,8 +3,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { usecase } from "~common/ui/utils/usecase";
+import { i18nConfig } from "~features/i18n/domain/i18n.config";
 import { CurrentLocaleUseCase } from "~features/i18n/domain/usecases/current-locale";
-import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
 import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
 
 @Component({
@@ -19,7 +19,7 @@ import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
 
 		<mat-menu #languagesMenu="matMenu">
 			@if (currentLocale(); as current) {
-				@for (locale of i18nConfig().locales; track $index) {
+				@for (locale of config.locales; track $index) {
 					<button mat-menu-item
 						[disabled]="current.code === locale.code"
 						(click)="setLocale(locale)">
@@ -32,6 +32,6 @@ import { SetLocaleUseCase } from "~features/i18n/domain/usecases/set-locale";
 })
 export class LocalSelectorComponent {
 	readonly setLocale = usecase(SetLocaleUseCase);
-	readonly i18nConfig = usecase(I18nConfigUseCase);
 	readonly currentLocale = usecase(CurrentLocaleUseCase);
+	readonly config = i18nConfig;
 }

@@ -6,9 +6,7 @@ import {
 } from "./templates";
 import { watch } from "fs";
 import { debounceTime, Subject, tap } from "rxjs";
-import { I18nConfigUseCase } from "~features/i18n/domain/usecases/i18n-config/i18n-config.usecase";
-
-const i18nConfig = new I18nConfigUseCase().handle();
+import { i18nConfig } from "~features/i18n/domain/i18n.config";
 
 async function _generateTranslationKeysType(){
 
